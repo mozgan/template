@@ -313,7 +313,9 @@ add_test(NAME \${${PRJ_NAME}_TEST} COMMAND \${${PRJ_NAME}_TEST})
 target_link_libraries(\${${PRJ_NAME}_TEST} PUBLIC \${CMAKE_PROJECT_NAME} gtest gtest_main pthread)
 " > test/CMakeLists.txt
 
-    echo "#include <iostream>
+    echo "#include \"${PRJ_NAME}.h\"
+
+#include <iostream>
 
 #include <gtest/gtest.h>
 
