@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# build direcroty
+build
+_build
