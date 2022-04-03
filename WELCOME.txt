@@ -1,0 +1,4 @@
+PRJ_NAME for macOS
+
+Welcome to PRJ_NAME for macOS! This installer will guide you through the installation process.
+
