@@ -332,11 +332,11 @@ do_test() {
     cmake .. && make
 
     if [ $ARG == "MAIN" ]; then
-        read -p "Do you want to test application? (y/n) " ans
-        answer=${ans^^}
-        if [[ $answer == "Y" || $answer == "YES" ]]; then
+        #read -p "Do you want to test application? (y/n) " ans
+        #answer=${ans^^}
+        #if [[ $answer == "Y" || $answer == "YES" ]]; then
             ./bin/${PRJ_NAME}
-        fi
+        #fi
     else
         ./test/${PRJ_NAME}_test
     fi
