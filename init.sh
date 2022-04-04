@@ -255,7 +255,7 @@ elseif (\${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     file(STRINGS \"/etc/os-release\" os_name REGEX \"^NAME=\")
 
     # create deb package for Debian and Ubuntu
-    if(\${os_name} MATCHES \"^(NAME)=(Debian|Ubuntu)\$\")
+    if(\${os_name} MATCHES \"^(NAME)=\\\"(Debian GNU/Linux|Ubuntu)\\\"\$\")
         set(CPACK_DEBIAN_PACKAGE_DESCRIPTION \"\${CMAKE_PROJECT_DESCRIPTION}\")
         set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
         set(CPACK_DEBIAN_PACKAGE_DEPENDS \"\")
