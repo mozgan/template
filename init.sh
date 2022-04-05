@@ -151,7 +151,7 @@ add_definitions(-Weffc++)
 
 ### --- --- --- static/shared libraries --- --- --- ###
 #find_library(LIB_XXXXXX_FOUND
-#    lib_xxxxxx.a lib_xxxxxx.so lib_xxxxxx.dylib
+#    NAMES lib_xxxxxx       # lib_xxxxxx.a lib_xxxxxx.so lib_xxxxxx.dylib
 #    HINTS /path/to/library
 #)
 #if (LIB_XXXXXX_FOUND)
@@ -204,8 +204,7 @@ install(TARGETS \${PROJECT_NAME} DESTINATION lib COMPONENT libraries)
 #target_link_libraries(\${CMAKE_PROJECT_NAME} add_some_lib)
 #target_link_libraries(\${CMAKE_PROJECT_NAME} pthread)
 
-### --- --- --- --- --- --- Cpack --- --- --- --- --- --- ###
-" >> CMakeLists.txt
+### --- --- --- --- --- --- Cpack --- --- --- --- --- --- ###" >> CMakeLists.txt
 
     if [ $ARG == "MAIN" ]; then
         echo "set(CPACK_PACKAGE_NAME \${PROJECT_NAME})" >> CMakeLists.txt
@@ -216,7 +215,7 @@ install(TARGETS \${PROJECT_NAME} DESTINATION lib COMPONENT libraries)
     echo "
 set(CPACK_PACKAGE_VENDOR \"${FULLNAME}\")
 set(CPACK_PACKAGE_CONTACT \"${EMAIL}\")
-#set(CPACK_PACKAGE_HOMEPAGE_URL \"${WWW}\")
+set(CPACK_PACKAGE_HOMEPAGE_URL \"${WWW}\")
 set(CPACK_PACKAGE_VERSION \${VERSION_NO})
 set(CPACK_PACKAGE_FILE_NAME \${CPACK_PACKAGE_NAME}-\${VERSION_NO}-\${CMAKE_SYSTEM_PROCESSOR})
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY \"\${CMAKE_PROJECT_DESCRIPTION}\")
@@ -237,18 +236,25 @@ set(CPACK_PACKAGE_DESCRIPTION_SUMMARY \"\${CMAKE_PROJECT_DESCRIPTION}\")
     echo "
 set(CPACK_PACKAGING_INSTALL_PREFIX \"/usr/local\")
 
-set(CPACK_RESOURCE_FILE_LICENSE \"\${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt\")
-install(FILES \${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt DESTINATION /tmp)
+if (EXISTS \"${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt\")
+    set(CPACK_RESOURCE_FILE_LICENSE \"\${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt\")
+    install(FILES \${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt DESTINATION /tmp)
+endif()
 
-set(CPACK_RESOURCE_FILE_README \"\${CMAKE_CURRENT_SOURCE_DIR}/README.txt\")
-install(FILES \${CMAKE_CURRENT_SOURCE_DIR}/README.txt DESTINATION /tmp)
+if (EXISTS \"${CMAKE_CURRENT_SOURCE_DIR}/README.txt\")
+    set(CPACK_RESOURCE_FILE_README \"\${CMAKE_CURRENT_SOURCE_DIR}/README.txt\")
+    install(FILES \${CMAKE_CURRENT_SOURCE_DIR}/README.txt DESTINATION /tmp)
+endif()
 
 set(CPACK_SET_DESTDIR ON)
 set(CPACK_STRIP_FILES ON)
 set(CPACK_SOURCE_STRIP_FILES ON)
 
 if (\${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    set(CPACK_RESOURCE_FILE_WELCOME \"\${CMAKE_CURRENT_SOURCE_DIR}/WELCOME.txt\")
+    if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/WELCOME.txt")
+        set(CPACK_RESOURCE_FILE_WELCOME \"\${CMAKE_CURRENT_SOURCE_DIR}/WELCOME.txt\")
+    endif()
+
     set(CPACK_GENERATOR \"productbuild;TGZ\")
     set(CPACK_SOURCE_GENERATOR \"TGZ\")
 elseif (\${CMAKE_SYSTEM_NAME} MATCHES "Linux")
