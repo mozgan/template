@@ -140,6 +140,17 @@ add_definitions(-Wno-ignored-qualifiers)
 # Effective C++ series of books.
 add_definitions(-Weffc++)
 
+# Optimize even more.
+#add_definitions(-O2)
+
+# run the standard link-time optimizer. When invoked with source code,
+# it generates GIMPLE and writes it to special ELF sections in the object file.
+#add_definitions(-flto)
+
+# During the link-time optimization, do not warn about type mismatches
+# in global declarations from different compilation units.
+#add_definitions(-Wlto-type-mismatch)
+
 ### --- --- --- --- --- --- Required libraries --- --- --- --- --- --- ###
 ### --- --- --- packages --- --- --- ###
 #find_package(Threads REQUIRED)
