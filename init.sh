@@ -326,7 +326,7 @@ create_test() {
 set(${PRJ_NAME}_TEST ${PRJ_NAME}_test)
 
 find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
+include_directories(\${GTEST_INCLUDE_DIRS})
 
 add_executable(\${${PRJ_NAME}_TEST} ${PRJ_NAME}_test.cpp)
 add_test(NAME \${${PRJ_NAME}_TEST} COMMAND \${${PRJ_NAME}_TEST})
