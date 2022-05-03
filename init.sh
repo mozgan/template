@@ -325,9 +325,12 @@ create_test() {
 
 set(${PRJ_NAME}_TEST ${PRJ_NAME}_test)
 
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
 add_executable(\${${PRJ_NAME}_TEST} ${PRJ_NAME}_test.cpp)
 add_test(NAME \${${PRJ_NAME}_TEST} COMMAND \${${PRJ_NAME}_TEST})
-target_link_libraries(\${${PRJ_NAME}_TEST} PUBLIC \${CMAKE_PROJECT_NAME} gtest gtest_main pthread)
+target_link_libraries(\${${PRJ_NAME}_TEST} PUBLIC \${CMAKE_PROJECT_NAME} \${CMAKE_PROJECT_NAME} \${GTEST_LIBRARIES} \${GTEST_MAIN_LIBRARIES} pthread)
 " > test/CMakeLists.txt
 
     echo "#include \"${PRJ_NAME}.h\"
