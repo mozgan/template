@@ -323,14 +323,15 @@ int main(int argc, char* argv[]) {
 create_test() {
     echo "cmake_minimum_required(VERSION 3.10)
 
-set(${PRJ_NAME}_TEST ${PRJ_NAME}_test)
-
 find_package(GTest REQUIRED)
 include_directories(\${GTEST_INCLUDE_DIRS})
 
+set(${PRJ_NAME}_TEST ${PRJ_NAME}_test)
+
+
 add_executable(\${${PRJ_NAME}_TEST} ${PRJ_NAME}_test.cpp)
 add_test(NAME \${${PRJ_NAME}_TEST} COMMAND \${${PRJ_NAME}_TEST})
-target_link_libraries(\${${PRJ_NAME}_TEST} PUBLIC \${CMAKE_PROJECT_NAME} \${CMAKE_PROJECT_NAME} \${GTEST_LIBRARIES} \${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(\${${PRJ_NAME}_TEST} PUBLIC \${CMAKE_PROJECT_NAME} \${GTEST_LIBRARIES} \${GTEST_MAIN_LIBRARIES} pthread)
 " > test/CMakeLists.txt
 
     echo "#include \"${PRJ_NAME}.h\"
