@@ -52,7 +52,7 @@ printf -v WWW '%s' $WWW
 ###############################################################################
 ### create_directory(): create directories include, src, and test
 create_directories() {
-    rm -rf .git
+    # rm -rf .git
     mkdir -p include
     mkdir -p src
 
