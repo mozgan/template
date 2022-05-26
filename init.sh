@@ -175,9 +175,9 @@ add_definitions(-Weffc++)
 #    )
 #
 #    if (\${LIB}_FOUND)
-#        message(STATUS "\${LIB} found.")
+#        message(STATUS \"\${LIB} found.\")
 #    else()
-#        message(FATAL_ERROR "\${LIB} NOT FOUND!!!")
+#        message(FATAL_ERROR \"\${LIB} NOT FOUND!!!\")
 #    endif()
 #endforeach()
 
