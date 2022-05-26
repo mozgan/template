@@ -161,15 +161,25 @@ add_definitions(-Weffc++)
 #endif()
 
 ### --- --- --- static/shared libraries --- --- --- ###
-#find_library(LIB_XXXXXX_FOUND
-#    NAMES lib_xxxxxx       # lib_xxxxxx.a lib_xxxxxx.so lib_xxxxxx.dylib
-#    HINTS /path/to/library
+#set(LIBS
+#    lib1
+#    lib2
+#    ...
 #)
-#if (LIB_XXXXXX_FOUND)
-#    message(STATUS \"Library XXXXXX found!\")
-#else()
-#    message(FATAL_ERROR \"Library XXXXXX not found!\")
-#endif()
+
+#foreach(LIB \${LIBS})
+#    find_library(\${LIB}_FOUND
+#        NAMES \${LIB}
+#        PATH /path
+#        HINTS /path/to/library
+#    )
+#
+#    if (\${LIB}_FOUND)
+#        message(STATUS "\${LIB} found.")
+#    else()
+#        message(FATAL_ERROR "\${LIB} NOT FOUND!!!")
+#    endif()
+#endforeach()
 
 ### --- --- --- --- --- --- Target definitions --- --- --- --- --- --- ###
 " >> CMakeLists.txt
@@ -212,7 +222,7 @@ install(TARGETS \${PROJECT_NAME} DESTINATION lib COMPONENT libraries)
 # Warning: use the extension \".dylib\" in macOS
 #target_link_libraries(\${CMAKE_PROJECT_NAME} lib_xxxxxx.dylib)
 # Warning: in Linux no extension requested
-#target_link_libraries(\${CMAKE_PROJECT_NAME} add_some_lib)
+#target_link_libraries(\${CMAKE_PROJECT_NAME) \${LIBS})
 #target_link_libraries(\${CMAKE_PROJECT_NAME} pthread)
 
 ### --- --- --- --- --- --- Cpack --- --- --- --- --- --- ###" >> CMakeLists.txt
