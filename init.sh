@@ -62,7 +62,7 @@ create_directories() {
 ###############################################################################
 ### prepare_cmake(): prepare CMakeLists.txt
 prepare_cmake() {
-    echo "cmake_minimum_required(VERSION 3.10)
+    echo "cmake_minimum_required(VERSION 3.20)
 
 ### --- --- --- --- --- --- Version --- --- --- --- --- --- ###
 set(VERSION_MAJOR 1)
@@ -161,25 +161,25 @@ add_definitions(-Weffc++)
 #endif()
 
 ### --- --- --- static/shared libraries --- --- --- ###
-#set(LIBS
+set(LIBS
 #    lib1
 #    lib2
 #    ...
-#)
+)
 
-#foreach(LIB \${LIBS})
-#    find_library(\${LIB}_FOUND
-#        NAMES \${LIB}
-#        PATH /path
-#        HINTS /path/to/library
-#    )
-#
-#    if (\${LIB}_FOUND)
-#        message(STATUS \"\${LIB} found.\")
-#    else()
-#        message(FATAL_ERROR \"\${LIB} NOT FOUND!!!\")
-#    endif()
-#endforeach()
+foreach(LIB \${LIBS})
+    find_library(\${LIB}_FOUND
+        NAMES \${LIB}
+        PATH /usr/lib /usr/local/lib
+        HINTS /usr/lib /usr/local/lib
+    )
+
+    if (\${LIB}_FOUND)
+        message(STATUS \"\${LIB} found.\")
+    else()
+        message(FATAL_ERROR \"\${LIB} NOT FOUND!!!\")
+    endif()
+endforeach()
 
 ### --- --- --- --- --- --- Target definitions --- --- --- --- --- --- ###
 " >> CMakeLists.txt
@@ -222,7 +222,7 @@ install(TARGETS \${PROJECT_NAME} DESTINATION lib COMPONENT libraries)
 # Warning: use the extension \".dylib\" in macOS
 #target_link_libraries(\${CMAKE_PROJECT_NAME} lib_xxxxxx.dylib)
 # Warning: in Linux no extension requested
-#target_link_libraries(\${CMAKE_PROJECT_NAME) \${LIBS})
+#target_link_libraries(\${CMAKE_PROJECT_NAME} \${LIBS})
 #target_link_libraries(\${CMAKE_PROJECT_NAME} pthread)
 
 ### --- --- --- --- --- --- Cpack --- --- --- --- --- --- ###" >> CMakeLists.txt
@@ -230,7 +230,7 @@ install(TARGETS \${PROJECT_NAME} DESTINATION lib COMPONENT libraries)
     if [ $ARG == "MAIN" ]; then
         echo "set(CPACK_PACKAGE_NAME \${PROJECT_NAME})" >> CMakeLists.txt
     else
-        echo "set(CPACK_PACKAGE_NAME lib\${PROJECT_NAME}-dev)" >> CMakeLists.txt
+        echo "set(CPACK_PACKAGE_NAME lib\${PROJECT_NAME})" >> CMakeLists.txt
     fi
 
     echo "
@@ -331,7 +331,7 @@ int main(int argc, char* argv[]) {
 ###############################################################################
 ### create_test(): prepare test/CMakeLists.txt and test/${PRJ_NAME}_test
 create_test() {
-    echo "cmake_minimum_required(VERSION 3.10)
+    echo "cmake_minimum_required(VERSION 3.20)
 
 find_package(GTest REQUIRED)
 include_directories(\${GTEST_INCLUDE_DIRS})
